@@ -555,22 +555,22 @@ export default function AddSemanticViewModal({
                 refreshGen !== schemaRefreshGenRef.current
               )
                 return;
-                if (
-                  await captureAuthenticationError(
-                    error,
-                    () => {
-                      lastDepSnapshotRef.current = '';
-                      handleRuntimeFormChange({
-                        data,
-                        errors: errorsRef.current,
-                      });
-                    },
-                    () =>
-                      gen === fetchGenRef.current &&
-                      refreshGen === schemaRefreshGenRef.current,
-                  )
+              if (
+                await captureAuthenticationError(
+                  error,
+                  () => {
+                    lastDepSnapshotRef.current = '';
+                    handleRuntimeFormChange({
+                      data,
+                      errors: errorsRef.current,
+                    });
+                  },
+                  () =>
+                    gen === fetchGenRef.current &&
+                    refreshGen === schemaRefreshGenRef.current,
                 )
-                  return;
+              )
+                return;
               logging.error('Runtime schema refresh failed', error);
               // Allow exactly one retry per dependency state: clearing the
               // committed snapshot lets the next change event re-attempt
@@ -908,6 +908,7 @@ export default function AddSemanticViewModal({
                 />
               </FailureDetails>
             }
+          />
         )}
         {authentication && (
           <OAuth2RedirectMessage
